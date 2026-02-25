@@ -48,7 +48,7 @@ double ComplexNumber::abs(){
 }
 
 double ComplexNumber::angle(){
-	return atan2(imag, real);
+	return atan2(imag, real)*180/M_PI;
 }
 
 ComplexNumber operator+(double x, const ComplexNumber &c){
@@ -73,9 +73,13 @@ bool operator==(double x, const ComplexNumber &c){
 }
 
 ostream& operator<<(ostream &out,const ComplexNumber &c){
-	out << c.real;
-	if(c.imag >= 0) out << "+";
-	out << c.imag << "i";
+	if(c.real == 0 && c.imag == 0) out << "0";
+	if(c.real != 0) out << c.real;
+	if(c.imag > 0){
+		if(c.real != 0) out << "+" << c.imag << "i";
+		else out << c.imag << "i";
+	} 
+	else if(c.imag < 0) out << c.imag << "i";
 	return out;
 }
 
