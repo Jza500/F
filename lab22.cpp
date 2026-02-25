@@ -29,6 +29,55 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 }
 
 //Write your code here
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	return ComplexNumber(real*c.real - imag*c.imag, real*c.imag + imag*c.real);
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	double ตัวหาร = c.real*c.real + c.imag*c.imag;
+	return ComplexNumber((real*c.real + imag*c.imag)/ตัวหาร, (imag*c.real - real*c.imag)/ตัวหาร);
+}
+
+bool ComplexNumber::operator==(const ComplexNumber &c){
+	if (real == c.real && imag == c.imag) return true;
+	else return false;
+}
+
+double ComplexNumber::abs(){
+	return sqrt(real*real + imag*imag);
+}
+
+double ComplexNumber::angle(){
+	return atan2(imag, real);
+}
+
+ComplexNumber operator+(double x, const ComplexNumber &c){
+	return ComplexNumber(x + c.real, c.imag);
+}
+
+ComplexNumber operator-(double x, const ComplexNumber &c){
+	return ComplexNumber(x - c.real, -c.imag);
+}
+
+ComplexNumber operator*(double x, const ComplexNumber &c){
+	return ComplexNumber(x * c.real, x * c.imag);
+}
+
+ComplexNumber operator/(double x, const ComplexNumber &c){
+	double ตัวหาร = c.real * c.real + c.imag * c.imag;
+	return ComplexNumber((x * c.real) / ตัวหาร, (-x * c.imag) / ตัวหาร);
+}
+
+bool operator==(double x, const ComplexNumber &c){
+	return c.real == x && c.imag == 0;
+}
+
+ostream& operator<<(ostream &out,const ComplexNumber &c){
+	out << c.real;
+	if(c.imag >= 0) out << "+";
+	out << c.imag << "i";
+	return out;
+}
 
 int main(){
 	ComplexNumber a(1.5,2),b(3.2,-2.5),c(-1,1.2);	
